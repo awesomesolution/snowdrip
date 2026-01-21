@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SnowDrip - Wear The Cool | Premium Streetwear</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: #1a1a1a; line-height: 1.7; overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+    .container { width: 90%; max-width: 1400px; margin: auto; }
+
+    /* TOP BAR */
+    .top-bar { background: linear-gradient(135deg, #000, #1a1a1a); color: #fff; padding: 8px 0; text-align: center; font-size: 13px; }
+    .top-bar a { color: #00d4ff; text-decoration: none; }
+
+    /* HEADER */
+    header { position: sticky; top: 0; z-index: 999; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); border-bottom: 1px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; }
+    .logo-container { display: flex; align-items: center; gap: 12px; }
+    .logo-img { width: 45px; height: 45px; animation: logoFloat 3s ease-in-out infinite; }
+    @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    nav h2 { font-size: 24px; font-weight: 700; background: linear-gradient(135deg, #00d4ff, #0088ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    .nav-links { list-style: none; display: flex; gap: 35px; align-items: center; }
+    .nav-links > li { position: relative; }
+    .nav-links > li > a { text-decoration: none; color: #1a1a1a; font-size: 14px; text-transform: uppercase; font-weight: 600; transition: 0.3s; display: flex; align-items: center; gap: 6px; }
+    .nav-links > li > a:hover { color: #0088ff; }
+
+    /* MEGA MENU */
+    .mega-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 12px; box-shadow: 0 15px 50px rgba(0,0,0,0.12); padding: 35px; min-width: 700px; opacity: 0; visibility: hidden; transition: all 0.3s; margin-top: 20px; border: 2px solid rgba(0,212,255,0.1); }
+    .nav-links > li:hover .mega-menu { opacity: 1; visibility: visible; margin-top: 10px; }
+    .mega-menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .mega-menu-column h4 { font-size: 16px; color: #00d4ff; margin-bottom: 15px; text-transform: uppercase; font-family: 'Inter', sans-serif; font-weight: 700; }
+    .mega-menu-column ul { list-style: none; }
+    .mega-menu-column ul li { margin-bottom: 10px; }
+    .mega-menu-column ul li a { text-decoration: none; color: #555; font-size: 14px; transition: 0.3s; display: block; padding: 5px 0; }
+    .mega-menu-column ul li a:hover { color: #0088ff; padding-left: 8px; }
+
+    .mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .mobile-toggle span { width: 28px; height: 3px; background: #111; transition: 0.3s; }
+    
+    .search-cart { display: flex; gap: 20px; align-items: center; }
+    .icon-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #111; transition: 0.3s; position: relative; }
+    .icon-btn:hover { color: #0088ff; }
+    .cart-count { position: absolute; top: -8px; right: -8px; background: #00d4ff; color: #fff; font-size: 11px; padding: 2px 6px; border-radius: 10px; font-weight: 700; }
+
+    /* HERO */
+    .hero { padding: 120px 0 100px; background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #2d2d2d 100%); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,212,255,0.2) 0%, transparent 70%); border-radius: 50%; animation: pulseGlow 4s ease-in-out infinite; }
+    @keyframes pulseGlow { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 0.8; } }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 70px; align-items: center; position: relative; z-index: 2; }
+    .tagline { font-size: 22px; color: #00d4ff; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; animation: slideInUp 0.8s ease-out 0.1s both; }
+    .hero h1 { font-size: 56px; line-height: 1.1; margin-bottom: 25px; color: #fff; text-shadow: 0 4px 20px rgba(0,212,255,0.4); animation: slideInLeft 0.8s ease-out; }
+    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+    .hero p { font-size: 18px; color: #c0c0c0; margin-bottom: 35px; max-width: 520px; animation: slideInUp 0.8s ease-out 0.2s both; }
+    @keyframes slideInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .btn { display: inline-block; padding: 16px 40px; border-radius: 50px; background: linear-gradient(135deg, #00d4ff, #0088ff); color: #fff; text-decoration: none; font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: 0.3s; box-shadow: 0 8px 25px rgba(0,212,255,0.4); border: none; cursor: pointer; animation: slideInUp 0.8s ease-out 0.4s both; }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(0,212,255,0.6); }
+    .hero img { width: 100%; border-radius: 20px; box-shadow: 0 25px 60px rgba(0,212,255,0.3); border: 3px solid rgba(0,212,255,0.3); animation: slideInRight 0.8s ease-out 0.2s both; }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+    /* STATS */
+    .stats-bar { background: linear-gradient(135deg, #00d4ff, #0088ff); padding: 60px 0; color: #fff; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: center; }
+    .stat-item h3 { font-size: 48px; font-weight: 700; margin-bottom: 8px; }
+    .stat-item p { font-size: 16px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* CATEGORIES */
+    .categories-section { padding: 100px 0; background: #fafafa; }
+    .section-title { text-align: center; margin-bottom: 60px; }
+    .section-title h2 { font-size: 42px; background: linear-gradient(135deg, #000, #0088ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 15px; }
+    .section-title p { color: #666; font-size: 17px; }
+    .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+    .category-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.06); transition: 0.4s; border: 2px solid transparent; cursor: pointer; }
+    .category-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,212,255,0.2); border-color: #00d4ff; }
+    .category-image { width: 100%; height: 250px; object-fit: cover; transition: 0.4s; }
+    .category-card:hover .category-image { transform: scale(1.05); }
+    .category-content { padding: 25px; }
+    .category-content h3 { font-size: 22px; margin-bottom: 10px; color: #111; }
+    .category-content p { color: #666; font-size: 14px; margin-bottom: 15px; }
+    .shop-link { color: #00d4ff; font-weight: 600; text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; }
+    .shop-link:hover { gap: 12px; color: #0088ff; }
+
+    /* FEATURED */
+    .featured-section { padding: 100px 0; }
+    .featured-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .featured-card { position: relative; border-radius: 24px; overflow: hidden; height: 400px; cursor: pointer; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    .featured-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .featured-card:hover img { transform: scale(1.1); }
+    .featured-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px; color: #fff; }
+    .featured-overlay h3 { font-size: 32px; margin-bottom: 10px; }
+    .featured-overlay p { font-size: 16px; margin-bottom: 20px; }
+
+    /* NEWSLETTER */
+    .newsletter { padding: 80px 0; background: #f8f8f8; text-align: center; }
+    .newsletter h2 { font-size: 36px; margin-bottom: 15px; }
+    .newsletter p { color: #666; margin-bottom: 30px; font-size: 16px; }
+    .newsletter-form { max-width: 500px; margin: 0 auto; display: flex; gap: 10px; }
+    .newsletter-form input { flex: 1; padding: 16px 20px; border: 2px solid #ddd; border-radius: 50px; font-size: 15px; transition: 0.3s; }
+    .newsletter-form input:focus { outline: none; border-color: #00d4ff; }
+
+    /* FOOTER */
+    footer { background: linear-gradient(135deg, #000 0%, #1a1a1a 100%); color: #fff; padding: 80px 0 30px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+    footer h3 { color: #00d4ff; margin-bottom: 20px; font-size: 18px; font-family: 'Playfair Display', serif; }
+    footer p { font-size: 14px; color: #bbb; line-height: 1.8; margin-bottom: 10px; }
+    footer a { font-size: 14px; color: #bbb; line-height: 2.2; text-decoration: none; transition: 0.3s; display: block; }
+    footer a:hover { color: #00d4ff; padding-left: 5px; }
+    .social-links { display: flex; gap: 12px; margin-top: 20px; }
+    .social-links a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(0,212,255,0.1); border-radius: 50%; transition: 0.3s; padding-left: 0 !important; }
+    .social-links a:hover { background: #00d4ff; transform: translateY(-3px); padding-left: 0 !important; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; color: #888; font-size: 14px; }
+    .footer-bottom a { display: inline; color: #00d4ff; }
+
+    /* RESPONSIVE */
+    @media(max-width: 1024px) {
+      .mega-menu { min-width: 600px; }
+      .mega-menu-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width: 900px) {
+      .nav-links { display: none; }
+      .mobile-toggle { display: flex; }
+      .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #fff; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); gap: 15px; }
+      .mega-menu { position: static; transform: none; margin-top: 10px; min-width: 100%; }
+      .mega-menu-grid { grid-template-columns: 1fr; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero { padding: 80px 0 60px; }
+      .hero h1 { font-size: 40px; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width: 640px) {
+      .hero h1 { font-size: 32px; }
+      .tagline { font-size: 18px; }
+      .section-title h2 { font-size: 30px; }
+      .category-grid { grid-template-columns: 1fr; }
+      .featured-card { height: 300px; }
+      .newsletter-form { flex-direction: column; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="container">
+    <i class="fas fa-snowflake"></i> FREE SHIPPING ON ORDERS OVER 500 | NEW ARRIVALS WEEKLY | <a href="#">SHOP NOW</a>
+  </div>
+</div>
+
+<header>
+  <div class="container">
+    <nav>
+      <div class="logo-container">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='%23000'/%3E%3Ccircle cx='100' cy='100' r='80' fill='none' stroke='%2300d4ff' stroke-width='4'/%3E%3Cpath d='M100 50 L120 70 L110 70 L110 90 L120 90 L100 110 L80 90 L90 90 L90 70 L80 70 Z' fill='%2300d4ff'/%3E%3Ctext x='100' y='150' font-family='Arial' font-size='24' fill='%23fff' text-anchor='middle' font-weight='bold'%3ESD%3C/text%3E%3C/svg%3E" alt="SnowDrip" class="logo-img">
+        <h2>SnowDrip</h2>
+      </div>
+
+      <ul class="nav-links" id="navLinks">
+        <li>
+          <a href="#men">MEN <i class="fas fa-chevron-down" style="font-size:10px"></i></a>
+          <div class="mega-menu">
+            <div class="mega-menu-grid">
+              <div class="mega-menu-column">
+                <h4><i class="fas fa-tshirt"></i> Topwear</h4>
+                <ul>
+                  <li><a href="#">All Topwear</a></li>
+                  <li><a href="#">All T-Shirts</a></li>
+                  <li><a href="#">Oversized T-Shirts</a></li>
+                  <li><a href="#">Polo T-Shirts</a></li>
+                  <li><a href="#">Full Sleeves T-Shirts</a></li>
+                  <li><a href="#">Classic Fit T-Shirts</a></li>
+                  <li><a href="#">Printed T-Shirts</a></li>
+                  <li><a href="#">Shirts</a></li>
+                  <li><a href="#">Sweatshirts</a></li>
+                  <li><a href="#">Hoodies</a></li>
+                  <li><a href="#">Kurta</a></li>
+                  <li><a href="#">Co-ord Sets</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu-column">
+                <h4><i class="fas fa-running"></i> Bottomwear</h4>
+                <ul>
+                  <li><a href="#">All Bottomwear</a></li>
+                  <li><a href="#">Trackpants</a></li>
+                  <li><a href="#">Cargo Joggers</a></li>
+                  <li><a href="#">Shorts</a></li>
+                  <li><a href="#">Boxers</a></li>
+                  <li><a href="#">Pyjamas</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu-column">
+                <h4><i class="fas fa-snowflake"></i> Winterwear</h4>
+                <ul>
+                  <li><a href="#">All Winterwear</a></li>
+                  <li><a href="#">Hoodies</a></li>
+                  <li><a href="#">Sweatshirts</a></li>
+                  <li><a href="#">Sweatshirts & Hoodies</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <a href="#women">WOMEN <i class="fas fa-chevron-down" style="font-size:10px"></i></a>
+          <div class="mega-menu">
+            <div class="mega-menu-grid">
+              <div class="mega-menu-column">
+                <h4><i class="fas fa-female"></i> Topwear</h4>
+                <ul>
+                  <li><a href="#">All Topwear</a></li>
+                  <li><a href="#">All T-Shirts</a></li>
+                  <li><a href="#">Classic Fit T-Shirts</a></li>
+                  <li><a href="#">Oversized T-Shirts</a></li>
+                  <li><a href="#">Printed T-Shirts</a></li>
+                  <li><a href="#">Plain T-Shirts</a></li>
+                  <li><a href="#">Half Sleeves T-Shirts</a></li>
+                  <li><a href="#">Polo T-Shirts</a></li>
+                  <li><a href="#">Sweatshirts & Hoodies</a></li>
+                  <li><a href="#">Pullover</a></li>
+                  <li><a href="#">Vest</a></li>
+                  <li><a href="#">Kurti</a></li>
+                </ul>
+              </div>
+              <div class="mega-menu-column">
+                <h4><i class="fas fa-shopping-bag"></i> Western Wear</h4>
+                <ul>
+                  <li><a href="#">Co-ord Sets</a></li>
+                  <li><a href="#">Vest</a></li>
+                </ul>
+                <h4 style="margin-top:25px"><i class="fas fa-spa"></i> Ethnic Wear</h4>
+                <ul>
+                  <li><a href="#">Kurta Sets</a></li>
+                  <li><a href="#">Co-ord Sets</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li><a href="#new">NEW ARRIVALS</a></li>
+        <li><a href="#sale">SALE</a></li>
+      </ul>
+
+      <!-- <div class="search-cart">
+        <button class="icon-btn"><i class="fas fa-search"></i></button>
+        <button class="icon-btn">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </button>
+      </div> -->
+
+      <div class="mobile-toggle" id="mobileToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="tagline"><i class="fas fa-snowflake"></i> Wear The Cool</div>
+      <h1>Premium Streetwear Collection</h1>
+      <p>Discover the freshest drops in urban fashion. From oversized tees to statement hoodies, SnowDrip delivers style that speaks volumes.</p>
+      <a href="#shop" class="btn"><i class="fas fa-shopping-bag"></i> Shop Collection</a>
+    </div>
+    <div>
+      <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800" alt="SnowDrip Collection">
+    </div>
+  </div>
+</section>
+
+<section class="stats-bar">
+  <div class="container stats-grid">
+    <div class="stat-item"><h3><i class="fas fa-tshirt"></i> 500+</h3><p>Products</p></div>
+    <div class="stat-item"><h3><i class="fas fa-users"></i> 10K+</h3><p>Customers</p></div>
+    <div class="stat-item"><h3><i class="fas fa-star"></i> 4.9</h3><p>Rating</p></div>
+    <div class="stat-item"><h3><i class="fas fa-truck"></i> Free</h3><p>Shipping</p></div>
+  </div>
+</section>
+
+<section class="categories-section" id="shop">
+  <div class="container">
+    <div class="section-title">
+      <h2>Shop By Category</h2>
+      <p>Find your perfect style across our curated collections</p>
+    </div>
+    <div class="category-grid">
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600" alt="Oversized T-Shirts" class="category-image">
+        <div class="category-content">
+          <h3>Oversized T-Shirts</h3>
+          <p>Relaxed fit, maximum comfort. The essential streetwear staple.</p>
+          <a href="#" class="shop-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600" alt="Hoodies" class="category-image">
+        <div class="category-content">
+          <h3>Hoodies & Sweatshirts</h3>
+          <p>Stay cozy with our premium winter essentials.</p>
+          <a href="#" class="shop-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600" alt="Cargo Joggers" class="category-image">
+        <div class="category-content">
+          <h3>Cargo Joggers</h3>
+          <p>Utility meets style in our signature jogger collection.</p>
+          <a href="#" class="shop-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600" alt="Women's Collection" class="category-image">
+        <div class="category-content">
+          <h3>Women's Collection</h3>
+          <p>Contemporary styles for the modern woman.</p>
+          <a href="#" class="shop-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600" alt="Co-ord Sets" class="category-image">
+        <div class="category-content">
+          <h3>Co-ord Sets</h3>
+          <p>Perfectly matched sets for effortless style.</p>
+          <a href="#" class="shop-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600" alt="Printed T-Shirts" class="category-image">
+        <div class="category-content">
+          <h3>Printed T-Shirts</h3>
+          <p>Bold graphics and unique designs that make a statement.</p>
+          <a href="#" class="shop-link">Shop Now <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="featured-section" id="new">
+  <div class="container">
+    <div class="section-title">
+      <h2>Featured Collections</h2>
+      <p>Explore our latest drops and bestsellers</p>
+    </div>
+    <div class="featured-grid">
+      <div class="featured-card">
+        <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=800" alt="Men's Collection">
+        <div class="featured-overlay">
+          <h3>Men's Essentials</h3>
+          <p>Premium streetwear for the modern man</p>
+          <a href="#men" class="btn">Explore Collection</a>
+        </div>
+      </div>
+      <div class="featured-card">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800" alt="Women's Collection">
+        <div class="featured-overlay">
+          <h3>Women's Favorites</h3>
+          <p>Contemporary styles that empower</p>
+          <a href="#women" class="btn">Explore Collection</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter">
+  <div class="container">
+    <h2><i class="fas fa-envelope"></i> Join The SnowDrip Family</h2>
+    <p>Get exclusive access to new drops</p>
+    <form class="newsletter-form">
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit" class="btn">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h3><i class="fas fa-snowflake"></i> SnowDrip</h3>
+        <p>Premium streetwear brand redefining urban fashion. Wear the cool, be the vibe.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+      <div>
+        <h3>Men's</h3>
+        <a href="#">Oversized T-Shirts</a>
+        <a href="#">Hoodies</a>
+        <a href="#">Cargo Joggers</a>
+        <a href="#">Trackpants</a>
+        <a href="#">Co-ord Sets</a>
+        <a href="#">Winterwear</a>
+      </div>
+      <div>
+        <h3>Women's</h3>
+        <a href="#">T-Shirts</a>
+        <a href="#">Sweatshirts</a>
+        <a href="#">Kurti</a>
+        <a href="#">Kurta Sets</a>
+        <a href="#">Co-ord Sets</a>
+        <a href="#">Western Wear</a>
+      </div>
+      <div>
+        <h3>Company</h3>
+        <a href="#">About Us</a>
+        <a href="#">Our Story</a>
+        <a href="#">Manufacturing</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Careers</a>
+      </div>
+      <div>
+        <h3>Support</h3>
+        <a href="#">Contact Us</a>
+        <a href="#">Shipping Info</a>
+        <a href="#">Returns</a>
+        <a href="#">Size Guide</a>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 SnowDrip. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms</a></p>
+      <p style="margin-top:10px;font-size:13px">Manufactured by <a href="#">Swastik Garments</a> - Luxury Manufacturing Excellence</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile menu toggle
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinks = document.getElementById('navLinks');
+
+mobileToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('nav')) {
+    navLinks.classList.remove('active');
+  }
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+      navLinks.classList.remove('active');
+    }
+  });
+});
+
+// Header scroll effect
+const header = document.querySelector('header');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    header.style.boxShadow = '0 4px 20px rgba(0,212,255,0.15)';
+  } else {
+    header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+  }
+});
+
+// Newsletter form
+document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  alert('Thanks for subscribing! Check your email for 10% off 🎉');
+  e.target.reset();
+});
+
+// Cart functionality
+let cartCount = 0;
+document.querySelectorAll('.shop-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    cartCount++;
+    document.querySelector('.cart-count').textContent = cartCount;
+    
+    // Visual feedback
+    const cartIcon = document.querySelector('.fa-shopping-cart').parentElement;
+    cartIcon.style.transform = 'scale(1.3)';
+    setTimeout(() => {
+      cartIcon.style.transform = 'scale(1)';
+    }, 300);
+  });
+});
+
+// Intersection Observer for animations
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll('.category-card, .featured-card').forEach((card, index) => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(30px)';
+  card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+  observer.observe(card);
+});
+</script>
+
+</body>
+</html>
