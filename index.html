@@ -63,6 +63,68 @@
     .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(0,212,255,0.6); }
     .hero img { width: 100%; border-radius: 20px; box-shadow: 0 25px 60px rgba(0,212,255,0.3); border: 3px solid rgba(0,212,255,0.3); animation: slideInRight 0.8s ease-out 0.2s both; }
     @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 520px; /* IMPORTANT: give height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-slider img {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 25px 60px rgba(0,212,255,0.3);
+  border: 3px solid rgba(0,212,255,0.3);
+  opacity: 0;
+  transition: opacity 1s ease, transform 1s ease;
+  transform: scale(0.95);
+}
+
+.hero-slider img.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+/* HERO TEXT ANIMATIONS */
+.hero-content {
+  overflow: hidden;
+}
+
+.hero-content.animate-left {
+  animation: textLeft 0.8s ease forwards;
+}
+.hero-content.animate-right {
+  animation: textRight 0.8s ease forwards;
+}
+.hero-content.animate-up {
+  animation: textUp 0.8s ease forwards;
+}
+.hero-content.animate-zoom {
+  animation: textZoom 0.8s ease forwards;
+}
+
+@keyframes textLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes textRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes textUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes textZoom {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 
     /* STATS */
     .stats-bar { background: linear-gradient(135deg, #00d4ff, #0088ff); padding: 60px 0; color: #fff; }
@@ -267,14 +329,25 @@
 
 <section class="hero">
   <div class="container hero-grid">
-    <div>
-      <div class="tagline"><i class="fas fa-snowflake"></i> Wear The Cool</div>
-      <h1>Premium Streetwear Collection</h1>
-      <p>Discover the freshest drops in urban fashion. From oversized tees to statement hoodies, SnowDrip delivers style that speaks volumes.</p>
-      <a href="#shop" class="btn"><i class="fas fa-shopping-bag"></i> Shop Collection</a>
+    <div class="hero-content">
+      <div class="tagline" id="heroTagline">
+        <i class="fas fa-snowflake"></i> Trending Now
+      </div>
+      <h1 id="heroTitle">Premium Trackpants</h1>
+      <p id="heroDesc">
+        Comfortable, stylish trackpants designed for everyday streetwear.
+      </p>
+      <a href="#" class="btn" id="heroBtn">
+        <i class="fas fa-shopping-bag"></i> Shop Now
+      </a>
     </div>
-    <div>
-      <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800" alt="SnowDrip Collection">
+    <div class="hero-slider">
+      <img class="slide active" src="https://upload.meeshosupplyassets.com/cataloging/1768471844779/BLU1.png" alt="Trending Trackpants">
+      <img class="slide" src="https://upload.meeshosupplyassets.com/cataloging/1768719727589/WHITE3.png" alt="Top Selling Sweatshirt">
+      <img class="slide" src="https://upload.meeshosupplyassets.com/cataloging/1768798448095/OLIVE2.png" alt="Best Hoodie">
+      <img class="slide" src="https://upload.meeshosupplyassets.com/cataloging/1768824389741/ACT_LG_2.png" alt="Popular Tights">
+      <img class="slide" src="https://upload.meeshosupplyassets.com/cataloging/1768828608481/01A.png" alt="Printed Sweatshirt">
+      <img class="slide" src="https://upload.meeshosupplyassets.com/cataloging/1769070367953/SWHS0003.png" alt="Shirt">
     </div>
   </div>
 </section>
@@ -522,6 +595,91 @@ document.querySelectorAll('.category-card, .featured-card').forEach((card, index
   card.style.transition = `all 0.6s ease ${index * 0.1}s`;
   observer.observe(card);
 });
+
+// HERO PRODUCT SLIDER
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelectorAll(".hero-slider .slide");
+  const heroContent = document.querySelector(".hero-content");
+
+  const taglineEl = document.getElementById("heroTagline");
+  const titleEl = document.getElementById("heroTitle");
+  const descEl = document.getElementById("heroDesc");
+  const btnEl = document.getElementById("heroBtn");
+
+  const content = [
+    {
+      tagline: "Trending Now",
+      title: "Premium Trackpants",
+      desc: "Comfortable, stylish trackpants designed for everyday streetwear.",
+      link: "#trackpants",
+      animation: "animate-left"
+    },
+    {
+      tagline: "Top Seller",
+      title: "Classic Sweatshirts",
+      desc: "Soft, durable sweatshirts perfect for all seasons.",
+      link: "#sweatshirts",
+      animation: "animate-right"
+    },
+    {
+      tagline: "Winter Essential",
+      title: "Street Hoodies",
+      desc: "Bold hoodies crafted for warmth and urban attitude.",
+      link: "#hoodies",
+      animation: "animate-up"
+    },
+    {
+      tagline: "Active Wear",
+      title: "Performance Tights",
+      desc: "Stretchable tights built for comfort and movement.",
+      link: "#tights",
+      animation: "animate-zoom"
+    },
+    {
+      tagline: "New Drop",
+      title: "Printed Sweatshirts",
+      desc: "Eye-catching prints that define your street style.",
+      link: "#printed-sweatshirts",
+      animation: "animate-left"
+    },
+    {
+      tagline: "Fresh Style",
+      title: "Premium Shirts",
+      desc: "Sharp, modern shirts made for everyday comfort.",
+      link: "#shirts",
+      animation: "animate-right"
+    }
+  ];
+
+  let current = 0;
+
+  function updateHero() {
+    // image
+    slides.forEach(s => s.classList.remove("active"));
+    slides[current].classList.add("active");
+
+    // reset animation
+    heroContent.className = "hero-content";
+    void heroContent.offsetWidth; // force reflow
+
+    // text update
+    taglineEl.innerHTML = `<i class="fas fa-snowflake"></i> ${content[current].tagline}`;
+    titleEl.textContent = content[current].title;
+    descEl.textContent = content[current].desc;
+    btnEl.href = content[current].link;
+
+    // apply animation
+    heroContent.classList.add(content[current].animation);
+  }
+
+  updateHero();
+
+  setInterval(() => {
+    current = (current + 1) % content.length;
+    updateHero();
+  }, 3500);
+});
+
 </script>
 
 </body>
